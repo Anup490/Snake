@@ -3,9 +3,9 @@
 class Timer {
 	unsigned short second = 0;
 	SYSTEMTIME currentTime;
-	void saveNewTime(SYSTEMTIME& rCurrentTime, SYSTEMTIME& rNewTime);
+	void saveNewTime(SYSTEMTIME& rNewTime, unsigned short duration);
+	bool hasMilliSecondPassed(SYSTEMTIME& rNewTime);
 public:
 	Timer();
-	bool isSecondComplete();
 	bool isMilliSecondComplete(unsigned short duration);
 };

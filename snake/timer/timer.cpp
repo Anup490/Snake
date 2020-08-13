@@ -4,50 +4,26 @@ Timer::Timer() {
 	GetSystemTime(&currentTime);
 }
 
-bool Timer::isSecondComplete() {
-	SYSTEMTIME newTime;
-	GetSystemTime(&newTime);
-	if (newTime.wHour>currentTime.wHour) {
-		saveNewTime(currentTime,newTime);
-		return true;
-	}
-	if (newTime.wMinute > currentTime.wMinute) {
-		saveNewTime(currentTime, newTime);
-		return true;
-	}
-	if (newTime.wSecond > currentTime.wSecond) {
-		saveNewTime(currentTime, newTime);
-		return true;
-	}
-	return false;
-}
-
 bool Timer::isMilliSecondComplete(unsigned short duration) {
 	SYSTEMTIME newTime;
 	GetSystemTime(&newTime);
-	if (newTime.wHour > currentTime.wHour) {
-		saveNewTime(currentTime, newTime);
-		return true;
-	}
-	if (newTime.wMinute > currentTime.wMinute) {
-		saveNewTime(currentTime, newTime);
-		return true;
-	}
-	if (newTime.wSecond > currentTime.wSecond) {
-		saveNewTime(currentTime, newTime);
-		return true;
-	}
-	if (newTime.wMilliseconds > currentTime.wMilliseconds) {
-		saveNewTime(currentTime, newTime);
-		currentTime.wMilliseconds = currentTime.wMilliseconds + duration;
+	if (hasMilliSecondPassed(newTime)) {
+		saveNewTime(newTime,duration);
 		return true;
 	}
 	return false;
 }
 
-void Timer::saveNewTime(SYSTEMTIME& rCurrentTime, SYSTEMTIME& rNewTime) {
-	rCurrentTime.wHour = rNewTime.wHour;
-	rCurrentTime.wMinute = rNewTime.wMinute;
-	rCurrentTime.wSecond = rNewTime.wSecond;
-	rCurrentTime.wMilliseconds = rNewTime.wMilliseconds;
+void Timer::saveNewTime(SYSTEMTIME& rNewTime, unsigned short duration) {
+	currentTime.wHour = rNewTime.wHour;
+	currentTime.wMinute = rNewTime.wMinute;
+	currentTime.wSecond = rNewTime.wSecond;
+	currentTime.wMilliseconds = rNewTime.wMilliseconds + duration;
+}
+
+bool Timer::hasMilliSecondPassed(SYSTEMTIME& rNewTime) {
+	return (rNewTime.wHour > currentTime.wHour)
+		|| (rNewTime.wMinute > currentTime.wMinute)
+		|| (rNewTime.wSecond > currentTime.wSecond)
+		|| (rNewTime.wMilliseconds > currentTime.wMilliseconds);
 }
