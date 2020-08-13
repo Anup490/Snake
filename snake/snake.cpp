@@ -1,10 +1,10 @@
 ﻿#include "painter/painter.h"
 #include "timer/timer.h"
 
-#define MAX_STEPS_FOR_ITERATION 50
+#define MAX_STEPS_FOR_ITERATION 115
 
-#define MAX_STEPS_X 80
-#define MAX_STEPS_Y 20
+#define MAX_STEPS_X 40
+#define MAX_STEPS_Y 10
 #define INTERVAL_MILLIS 100
 
 int main()
@@ -15,7 +15,13 @@ int main()
 	int steps = 1;
 	while (steps < MAX_STEPS_FOR_ITERATION) {
 		if (timer.isMilliSecondComplete(INTERVAL_MILLIS)) {
-			if (steps > (MAX_STEPS_FOR_ITERATION /2)) {
+			if (steps > (MAX_STEPS_X * 2 + MAX_STEPS_Y)) {
+				painter.paint(Direction::NY);
+			}
+			else if (steps > (MAX_STEPS_X + MAX_STEPS_Y)) {
+				painter.paint(Direction::NX);
+			}
+			else if (steps > MAX_STEPS_X) {
 				painter.paint(Direction::PY);
 			}
 			else {

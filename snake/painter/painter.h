@@ -5,7 +5,7 @@
 using namespace std;
 
 enum class Direction {
-	PX,PY,NONE
+	PX,PY,NX,NY,NONE
 };
 
 class Painter {
@@ -18,6 +18,9 @@ class Painter {
 	
 	void paintInXAxis();
 	void paintInYAxis();
+	void changeSpacesInX();
+	void changeSpacesInY();
+	void printEmptySpaces();
 public:
 	Painter(int maxInXAxis,int maxInYAxis);
 	void paint(Direction direction);
