@@ -50,27 +50,24 @@ void Painter::paintInYAxis() {
 
 void Painter::changeSpacesInX() {
 	if (previousDirection == Direction::PX) {
-		spacesInX += TURN_LENGTH;
+		spacesInX += TURN_LENGTH_X;
 	}
 	else if (previousDirection == Direction::NX) {
-		spacesInX -= TURN_LENGTH;
+		spacesInX -= TURN_LENGTH_X;
 	}
 }
 
 void Painter::changeSpacesInY() {
 	if (previousDirection == Direction::PY) {
-		spacesInY += TURN_LENGTH;
+		spacesInY += TURN_LENGTH_Y;
 	}
 	else if (previousDirection == Direction::NY) {
-		spacesInY -= TURN_LENGTH;
+		spacesInY -= TURN_LENGTH_Y;
 	}
 }
 
 void Painter::printEmptySpaces() {
 	for (int i = 0; i < spacesInY; i++) {
-		for (int i = 0; i < spacesInX; i++) {
-			cout << " ";
-		}
 		cout << endl;
 	}
 }

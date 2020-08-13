@@ -1,6 +1,7 @@
 #include <iostream>
 #define SNAKE_LENGTH 6
-#define TURN_LENGTH SNAKE_LENGTH*2
+#define TURN_LENGTH_X SNAKE_LENGTH*2
+#define TURN_LENGTH_Y SNAKE_LENGTH
 
 using namespace std;
 
