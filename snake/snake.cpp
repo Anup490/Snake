@@ -1,19 +1,17 @@
 ﻿#include "painter/painter.h"
-#include <windows.h>
+#include "timer/timer.h"
+
+#define INTERVAL_MILLIS 100
 
 int main()
 {
 	Painter painter;
-	unsigned short second = 0;
-	SYSTEMTIME time;
-	GetSystemTime(&time);
+	Timer timer;
 	int i = 0;
 	int steps = 1;
-	while (steps < 20) {
-		GetSystemTime(&time);
-		if (time.wSecond > second) {
+	while (steps < 50) {
+		if (timer.isMilliSecondComplete(INTERVAL_MILLIS)) {
 			painter.paint(steps);
-			second = time.wSecond;
 			steps++;
 		}
 	}
