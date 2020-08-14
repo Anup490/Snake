@@ -6,13 +6,15 @@ Painter::Painter(AbstractItem* pItems, int totalItems) {
 }
 
 void Painter::paint() {
-	Row rows[MAX_Y_AXIS];
-	makeFrame(rows);
+	Row* pRows = new Row[MAX_Y_AXIS];
+	initRows(pRows);
+	makeFrame(pRows);
+	system("cls");
 	for (int i = 0; i < MAX_Y_AXIS; i++) {
-		if (rows[i].size > 0 ) {
-			for (int j = 0; j < rows[i].size; i++) {
-				bool glow = *(rows[i].pPointFlags + i);
-				(glow) ? cout << "*" : cout << " ";
+		if (pRows[i].size > 0 ) {
+			for (int j = 0; j < pRows[i].size; j++) {
+				bool glow = *(pRows[i].pPointFlags + j);
+				(glow == true) ? cout << "*" : cout << " ";
 			}
 		}
 		cout << endl;
@@ -21,6 +23,14 @@ void Painter::paint() {
 		AbstractItem* pItem = pItems + i;
 		pItem->onDraw();
 	}
+	delete[] pRows;
+}
+
+void Painter::initRows(Row* pRows) {
+	for (int i = 0; i < MAX_Y_AXIS; i++) {
+		Row* pNewRow = new Row(MAX_X_AXIS);
+		pRows[i] = *pNewRow;
+	}
 }
 
 void Painter::makeFrame(Row* pRows) {
@@ -28,9 +38,9 @@ void Painter::makeFrame(Row* pRows) {
 		AbstractItem* pItem = pItems + i;
 		Points* pPoints = pItem->getPoints();
 		for (int j = 0; j < pPoints->noOfPoints; j++) {
-			Point* pPoint = pPoints->points + j;
+			Point* pPoint = pPoints->pPointArray + j;
 			if (isWithinBounds(*pPoint)) {
-				Row* pRow = pRows + (pPoint->y);
+				Row* pRow = pRows + (pPoint->y);		
 				bool* pPointFlag = (pRow->pPointFlags) + (pPoint->x);
 				*(pPointFlag) = true;
 				pRow->size = pPoint->x;
@@ -40,7 +50,7 @@ void Painter::makeFrame(Row* pRows) {
 }
 
 bool Painter::isWithinBounds(Point point) {
-	return (point.x < MAX_X_AXIS) && (point.y<MAX_Y_AXIS);
+	return (point.x < MAX_X_AXIS) && (point.y < MAX_Y_AXIS);
 }
 
 //void Painter::paint(Direction direction) {

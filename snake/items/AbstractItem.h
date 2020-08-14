@@ -1,13 +1,26 @@
+#pragma once
+
 struct Point{
 	int x;
 	int y;
 };
+
 struct Points {
-	Point* points;
-	int noOfPoints;
+	Point* pPointArray;
+	int noOfPoints = 0;
+
+	Points(int size) {
+		this->pPointArray = new Point[size];
+		this->noOfPoints = size;
+	}
+
+	~Points() {
+		delete[] pPointArray;
+	}
 };
+
 class AbstractItem {
 public:
-	virtual void onDraw() {};
-	virtual Points* getPoints() {};
+	virtual void onDraw() = 0;
+	virtual Points* getPoints() = 0;
 };

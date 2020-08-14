@@ -1,12 +1,11 @@
 #include <iostream>
 #include "../items/abstractItem.h"
 #include <list>
-#define SNAKE_LENGTH 6
 
 #define TURN_LENGTH_X SNAKE_LENGTH
 #define TURN_LENGTH_Y SNAKE_LENGTH
 
-#define MAX_X_AXIS 20
+#define MAX_X_AXIS 80
 #define MAX_Y_AXIS 10
 
 using namespace std;
@@ -18,12 +17,22 @@ enum class Direction {
 struct Row
 {
 	bool* pPointFlags;
-	int size;
+	int size = 0;
+	Row(){}
+
+	Row(int boolSize) {
+		this->pPointFlags = new bool[boolSize];
+	}
+
+	~Row() {
+		delete[] pPointFlags;
+	}
 };
 
 class Painter {
 	AbstractItem* pItems;
 	int totalItems;
+	void initRows(Row* pRows);
 	void makeFrame(Row* pRows);
 	bool isWithinBounds(Point point);
 
