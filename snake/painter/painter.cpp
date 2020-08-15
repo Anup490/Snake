@@ -50,9 +50,7 @@ void Painter::makeFrame(Row* pRows) {
 				if(((pPoint->x) + 1)>(pRow->size)) {
 					pRow->size = (pPoint->x) + 1;
 				}
-
 			}
-			
 		}
 	}
 	//////////////DRAW FRAMES (FOR TEST ONLY)//////////

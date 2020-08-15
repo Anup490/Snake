@@ -2,7 +2,7 @@
 #include "items/snakeitem.h"
 #include "timer/timer.h"
 
-#define MAX_STEPS_FOR_ITERATION 109
+#define MAX_STEPS_FOR_ITERATION 549
 
 #define INTERVAL_MILLIS 100
 

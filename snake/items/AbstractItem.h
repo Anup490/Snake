@@ -1,7 +1,7 @@
 #pragma once
 
-#define MAX_X_AXIS 20
-#define MAX_Y_AXIS 10
+#define MAX_X_AXIS 120
+#define MAX_Y_AXIS 20
 
 struct Point{
 	int x;
