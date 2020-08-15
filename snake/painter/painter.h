@@ -5,9 +5,6 @@
 #define TURN_LENGTH_X SNAKE_LENGTH
 #define TURN_LENGTH_Y SNAKE_LENGTH
 
-#define MAX_X_AXIS 80
-#define MAX_Y_AXIS 10
-
 using namespace std;
 
 enum class Direction {
