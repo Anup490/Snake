@@ -1,8 +1,7 @@
 #include "snakeitem.h"
 
 SnakeItem::SnakeItem() {
-	this->newOrientation = Orientation::PX;
-	this->oldOrientation = Orientation::PX;
+	this->orientation = Orientation::PX;
 	this->pPoints = new Points(SNAKE_LENGTH);
 	initPoints();
 }
@@ -10,59 +9,61 @@ SnakeItem::~SnakeItem() {
 	delete pPoints;
 }
 
-/*
-	RULE 
-
-	Compare with previous point instead with head
-
-	PX = Lesser X than Previous && Same Y as previous
-	NX = Greater X than Previous && Same Y as previous
-	PY = Lesser Y than Previous && Same X as previous
-	NY = Greater Y than Previous && Same X as previous
-
-*/
-
 void SnakeItem::onDraw() {
-	for (int i = 0; i < SNAKE_LENGTH; i++) {
+	shiftHead();
+	for (int i = (SNAKE_LENGTH-2); i >= 0; i--) {
+		Point* pPrevPoint = (pPoints->pPointArray) + (i+1);
 		Point* pPoint = (pPoints->pPointArray) + i;
-		if (newOrientation == Orientation::PY) {
-			if ((head.x) > (pPoint->x)) {
-				(pPoint->x)++;
+		if (orientation == Orientation::PY) {
+			if ((pPoint->y) > (pPrevPoint->y)) {
+				(pPoint->y)--;
 			}
-			else if ((head.x) < (pPoint->x)) {
+			else if ((pPoint->x) > (pPrevPoint->x)) {		
 				(pPoint->x)--;
+			}
+			else if ((pPoint->x) < (pPrevPoint->x)) {
+				(pPoint->x)++;
 			}
 			else {
 				(pPoint->y)++;
 			}
 		}
-		else if (newOrientation == Orientation::NX) {
-			if ((head.y) < (pPoint->y)) {
+		else if (orientation == Orientation::NX) {
+			if ((pPoint->x) < (pPrevPoint->x)) {
+				(pPoint->x)++;
+			}
+			else if ((pPoint->y) > (pPrevPoint->y)) {
 				(pPoint->y)--;
 			}
-			else if ((head.y) > (pPoint->y)) {
+			else if ((pPoint->y) < (pPrevPoint->y)) {			
 				(pPoint->y)++;
 			}
 			else {
 				(pPoint->x)--;
 			}
 		}
-		else if (newOrientation == Orientation::NY) {
-			if ((head.x) > (pPoint->x)) {
+		else if (orientation == Orientation::NY) {
+			if ((pPoint->y) < (pPrevPoint->y)) {
+				(pPoint->y)++;
+			}
+			else if ((pPoint->x) < (pPrevPoint->x)) {		
 				(pPoint->x)++;
 			}
-			else if ((head.x) < (pPoint->x)) {
+			else if ((pPoint->x) > (pPrevPoint->x)) {
 				(pPoint->x)--;
 			}
 			else {
 				(pPoint->y)--;
 			}
 		}
-		else if (newOrientation == Orientation::PX) {
-			if ((head.y) < (pPoint->y)) {
+		else if (orientation == Orientation::PX) {
+			if ((pPoint->x) > (pPrevPoint->x)) {
+				(pPoint->x)--;
+			}
+			else if ((pPoint->y) > (pPrevPoint->y)) {
 				(pPoint->y)--;
 			}
-			else if ((head.y) > (pPoint->y)) {
+			else if ((pPoint->y) < (pPrevPoint->y)) {				
 				(pPoint->y)++;
 			}
 			else {
@@ -70,18 +71,17 @@ void SnakeItem::onDraw() {
 			}
 		}
 	}
-	updateHeadAndTail();
 }
 
 void SnakeItem::onInput(char inputChar) {
 	Orientation inputOrientation = toOrientation(inputChar);
-	if (((newOrientation == Orientation::PX) || (newOrientation == Orientation::NX))
+	if (((orientation == Orientation::PX) || (orientation == Orientation::NX))
 		&& ((inputOrientation == Orientation::PY) || (inputOrientation == Orientation::NY))) {
-		newOrientation = inputOrientation;
+		orientation = inputOrientation;
 	}
-	else if (((newOrientation == Orientation::PY) || (newOrientation == Orientation::NY))
+	else if (((orientation == Orientation::PY) || (orientation == Orientation::NY))
 		&& ((inputOrientation == Orientation::PX) || (inputOrientation == Orientation::NX))) {
-		newOrientation = inputOrientation;
+		orientation = inputOrientation;
 	}
 }
 
@@ -95,7 +95,6 @@ void SnakeItem::initPoints() {
 		pPoint->x = i;
 		pPoint->y = 0;
 	}
-	updateHeadAndTail();
 }
 
 Orientation SnakeItem::toOrientation(char inputChar) {
@@ -113,7 +112,18 @@ Orientation SnakeItem::toOrientation(char inputChar) {
 	}
 }
 
-void SnakeItem::updateHeadAndTail() {
-	this->head = *((pPoints->pPointArray) + (SNAKE_LENGTH-1));
-	this->tail = *(pPoints->pPointArray);
+void SnakeItem::shiftHead() {
+	Point* pHead = (pPoints->pPointArray) + (SNAKE_LENGTH - 1);
+	if (orientation == Orientation::PY) {
+		(pHead->y)++;
+	}
+	else if (orientation == Orientation::NX) {
+		(pHead->x)--;
+	}
+	else if (orientation == Orientation::NY) {
+		(pHead->y)--;
+	}
+	else if (orientation == Orientation::PX) {
+		(pHead->x)++;
+	}
 }
