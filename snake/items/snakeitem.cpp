@@ -10,83 +10,76 @@ SnakeItem::~SnakeItem() {
 	delete pPoints;
 }
 
+/*
+	RULE 
+
+	Compare with previous point instead with head
+
+	PX = Lesser X than Previous && Same Y as previous
+	NX = Greater X than Previous && Same Y as previous
+	PY = Lesser Y than Previous && Same X as previous
+	NY = Greater Y than Previous && Same X as previous
+
+*/
+
 void SnakeItem::onDraw() {
-	if (newOrientation == Orientation::PY) {
-		for (int i = 0; i < SNAKE_LENGTH; i++) {
-			Point* pPoint = (pPoints->pPointArray) + i;
-			if ((pPoint->x) != (head.x)) {
-				if ((head.x)>(pPoint->x)) {
-					(pPoint->x)++;
-				}
-				else {
-					(pPoint->x)--;
-				}
+	for (int i = 0; i < SNAKE_LENGTH; i++) {
+		Point* pPoint = (pPoints->pPointArray) + i;
+		if (newOrientation == Orientation::PY) {
+			if ((head.x) > (pPoint->x)) {
+				(pPoint->x)++;
+			}
+			else if ((head.x) < (pPoint->x)) {
+				(pPoint->x)--;
 			}
 			else {
 				(pPoint->y)++;
 			}
 		}
-	}
-	else if (newOrientation == Orientation::NX) {
-		for (int i = 0; i < SNAKE_LENGTH; i++) {
-			Point* pPoint = (pPoints->pPointArray) + i;
-			if ((pPoint->y) != (head.y)) {
-				if ((head.y) < (pPoint->y)) {
-					(pPoint->y)--;
-				}
-				else {
-					(pPoint->y)++;
-				}
+		else if (newOrientation == Orientation::NX) {
+			if ((head.y) < (pPoint->y)) {
+				(pPoint->y)--;
+			}
+			else if ((head.y) > (pPoint->y)) {
+				(pPoint->y)++;
 			}
 			else {
 				(pPoint->x)--;
 			}
 		}
-	}
-	else if (newOrientation == Orientation::NY) {
-		int newX = head.x;
-		for (int i = 0; i < SNAKE_LENGTH; i++) {
-			Point* pPoint = (pPoints->pPointArray) + i;
-			if ((pPoint->x) != (head.x)) {
-				if ((head.x) > (pPoint->x)) {
-					(pPoint->x)++;
-				}
-				else {
-					(pPoint->x)--;
-				}
+		else if (newOrientation == Orientation::NY) {
+			if ((head.x) > (pPoint->x)) {
+				(pPoint->x)++;
+			}
+			else if ((head.x) < (pPoint->x)) {
+				(pPoint->x)--;
 			}
 			else {
 				(pPoint->y)--;
 			}
 		}
-	}
-	else if (newOrientation == Orientation::PX) {
-		for (int i = 0; i < SNAKE_LENGTH; i++) {
-			Point* pPoint = (pPoints->pPointArray) + i;
-			if ((pPoint->y) != (head.y)) {
-				if ((head.y) < (pPoint->y)) {
-					(pPoint->y)--;
-				}
-				else {
-					(pPoint->y)++;
-				}
+		else if (newOrientation == Orientation::PX) {
+			if ((head.y) < (pPoint->y)) {
+				(pPoint->y)--;
+			}
+			else if ((head.y) > (pPoint->y)) {
+				(pPoint->y)++;
 			}
 			else {
 				(pPoint->x)++;
 			}
 		}
 	}
-	oldOrientation = newOrientation;
 	updateHeadAndTail();
 }
 
 void SnakeItem::onInput(char inputChar) {
 	Orientation inputOrientation = toOrientation(inputChar);
-	if (((oldOrientation == Orientation::PX) || (oldOrientation == Orientation::NX)) 
+	if (((newOrientation == Orientation::PX) || (newOrientation == Orientation::NX))
 		&& ((inputOrientation == Orientation::PY) || (inputOrientation == Orientation::NY))) {
 		newOrientation = inputOrientation;
 	}
-	else if (((oldOrientation == Orientation::PY) || (oldOrientation == Orientation::NY))
+	else if (((newOrientation == Orientation::PY) || (newOrientation == Orientation::NY))
 		&& ((inputOrientation == Orientation::PX) || (inputOrientation == Orientation::NX))) {
 		newOrientation = inputOrientation;
 	}
