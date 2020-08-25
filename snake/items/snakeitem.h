@@ -19,6 +19,10 @@ class SnakeItem : public AbstractItem{
 	void initPoints();
 	Orientation toOrientation(char inputChar);
 	void shiftHead();
+	void shiftOnPY(Point* pPrevPoint, Point* pPoint);
+	void shiftOnNX(Point* pPrevPoint, Point* pPoint);
+	void shiftOnNY(Point* pPrevPoint, Point* pPoint);
+	void shiftOnPX(Point* pPrevPoint, Point* pPoint);
 public:
 	SnakeItem();
 	~SnakeItem();

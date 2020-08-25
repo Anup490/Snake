@@ -15,60 +15,16 @@ void SnakeItem::onDraw() {
 		Point* pPrevPoint = (pPoints->pPointArray) + (i+1);
 		Point* pPoint = (pPoints->pPointArray) + i;
 		if (orientation == Orientation::PY) {
-			if ((pPoint->y) > (pPrevPoint->y)) {
-				(pPoint->y)--;
-			}
-			else if ((pPoint->x) > (pPrevPoint->x)) {		
-				(pPoint->x)--;
-			}
-			else if ((pPoint->x) < (pPrevPoint->x)) {
-				(pPoint->x)++;
-			}
-			else {
-				(pPoint->y)++;
-			}
+			shiftOnPY(pPrevPoint,pPoint);
 		}
 		else if (orientation == Orientation::NX) {
-			if ((pPoint->x) < (pPrevPoint->x)) {
-				(pPoint->x)++;
-			}
-			else if ((pPoint->y) > (pPrevPoint->y)) {
-				(pPoint->y)--;
-			}
-			else if ((pPoint->y) < (pPrevPoint->y)) {			
-				(pPoint->y)++;
-			}
-			else {
-				(pPoint->x)--;
-			}
+			shiftOnNX(pPrevPoint, pPoint);
 		}
 		else if (orientation == Orientation::NY) {
-			if ((pPoint->y) < (pPrevPoint->y)) {
-				(pPoint->y)++;
-			}
-			else if ((pPoint->x) < (pPrevPoint->x)) {		
-				(pPoint->x)++;
-			}
-			else if ((pPoint->x) > (pPrevPoint->x)) {
-				(pPoint->x)--;
-			}
-			else {
-				(pPoint->y)--;
-			}
+			shiftOnNY(pPrevPoint, pPoint);
 		}
 		else if (orientation == Orientation::PX) {
-			if ((pPoint->x) > (pPrevPoint->x)) {
-				(pPoint->x)--;
-			}
-			else if ((pPoint->y) > (pPrevPoint->y)) {
-				(pPoint->y)--;
-			}
-			else if ((pPoint->y) < (pPrevPoint->y)) {				
-				(pPoint->y)++;
-			}
-			else {
-				(pPoint->x)++;
-			}
+			shiftOnPX(pPrevPoint, pPoint);
 		}
 	}
 }
@@ -127,3 +83,65 @@ void SnakeItem::shiftHead() {
 		(pHead->x)++;
 	}
 }
+
+void SnakeItem::shiftOnPY(Point* pPrevPoint, Point* pPoint) {
+	if ((pPoint->y) > (pPrevPoint->y)) {
+		(pPoint->y)--;
+	}
+	else if ((pPoint->x) < (pPrevPoint->x)) {
+		(pPoint->x)++;
+	}
+	else if ((pPoint->x) > (pPrevPoint->x)) {
+		(pPoint->x)--;
+	}
+	else {
+		(pPoint->y)++;
+	}
+}
+
+void SnakeItem::shiftOnNX(Point* pPrevPoint, Point* pPoint) {
+	if ((pPoint->x) < (pPrevPoint->x)) {
+		(pPoint->x)++;
+	}
+	else if ((pPoint->y) > (pPrevPoint->y)) {
+		(pPoint->y)--;
+	}
+	else if ((pPoint->y) < (pPrevPoint->y)) {
+		(pPoint->y)++;
+	}
+	else {
+		(pPoint->x)--;
+	}
+}
+
+void SnakeItem::shiftOnNY(Point* pPrevPoint, Point* pPoint) {
+	if ((pPoint->y) < (pPrevPoint->y)) {
+		(pPoint->y)++;
+	}
+	else if ((pPoint->x) < (pPrevPoint->x)) {
+		(pPoint->x)++;
+	}
+	else if ((pPoint->x) > (pPrevPoint->x)) {
+		(pPoint->x)--;
+	}
+	else {
+		(pPoint->y)--;
+	}
+}
+
+void SnakeItem::shiftOnPX(Point* pPrevPoint, Point* pPoint) {
+	if ((pPoint->x) > (pPrevPoint->x)) {
+		(pPoint->x)--;
+	}
+	else if ((pPoint->y) > (pPrevPoint->y)) {
+		(pPoint->y)--;
+	}
+	else if ((pPoint->y) < (pPrevPoint->y)) {
+		(pPoint->y)++;
+	}
+	else {
+		(pPoint->x)++;
+	}
+}
+
+
