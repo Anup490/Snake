@@ -2,7 +2,7 @@
 
 #include "abstractItem.h"
 
-#define SNAKE_LENGTH 6
+#define SNAKE_LENGTH 12
 
 #define INPUT_UP 'i'
 #define INPUT_DOWN 'k'
