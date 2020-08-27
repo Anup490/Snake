@@ -3,9 +3,14 @@
 #define MAX_X_AXIS 120
 #define MAX_Y_AXIS 20
 
+enum class Direction {
+	PX, PY, NX, NY, NONE
+};
+
 struct Point{
 	int x;
 	int y;
+	Direction direction;
 };
 
 struct Points {

@@ -9,15 +9,11 @@
 #define INPUT_LEFT 'j'
 #define INPUT_RIGHT 'l'
 
-enum class Orientation {
-	PX, PY, NX, NY, NONE
-};
-
 class SnakeItem : public AbstractItem{
-	Orientation orientation;
+	Direction direction;
 	Points* pPoints;
 	void initPoints();
-	Orientation toOrientation(char inputChar);
+	Direction toOrientation(char inputChar);
 	void shiftHead();
 	void shiftOnPY(Point* pPrevPoint, Point* pPoint);
 	void shiftOnNX(Point* pPrevPoint, Point* pPoint);

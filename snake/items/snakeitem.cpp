@@ -1,7 +1,7 @@
 #include "snakeitem.h"
 
 SnakeItem::SnakeItem() {
-	this->orientation = Orientation::PX;
+	this->direction = Direction::PX;
 	this->pPoints = new Points(SNAKE_LENGTH);
 	initPoints();
 }
@@ -14,30 +14,30 @@ void SnakeItem::onDraw() {
 	for (int i = (SNAKE_LENGTH-2); i >= 0; i--) {
 		Point* pPrevPoint = (pPoints->pPointArray) + (i+1);
 		Point* pPoint = (pPoints->pPointArray) + i;
-		if (orientation == Orientation::PY) {
+		if (direction == Direction::PY) {
 			shiftOnPY(pPrevPoint,pPoint);
 		}
-		else if (orientation == Orientation::NX) {
+		else if (direction == Direction::NX) {
 			shiftOnNX(pPrevPoint, pPoint);
 		}
-		else if (orientation == Orientation::NY) {
+		else if (direction == Direction::NY) {
 			shiftOnNY(pPrevPoint, pPoint);
 		}
-		else if (orientation == Orientation::PX) {
+		else if (direction == Direction::PX) {
 			shiftOnPX(pPrevPoint, pPoint);
 		}
 	}
 }
 
 void SnakeItem::onInput(char inputChar) {
-	Orientation inputOrientation = toOrientation(inputChar);
-	if (((orientation == Orientation::PX) || (orientation == Orientation::NX))
-		&& ((inputOrientation == Orientation::PY) || (inputOrientation == Orientation::NY))) {
-		orientation = inputOrientation;
+	Direction inputOrientation = toOrientation(inputChar);
+	if (((direction == Direction::PX) || (direction == Direction::NX))
+		&& ((inputOrientation == Direction::PY) || (inputOrientation == Direction::NY))) {
+		direction = inputOrientation;
 	}
-	else if (((orientation == Orientation::PY) || (orientation == Orientation::NY))
-		&& ((inputOrientation == Orientation::PX) || (inputOrientation == Orientation::NX))) {
-		orientation = inputOrientation;
+	else if (((direction == Direction::PY) || (direction == Direction::NY))
+		&& ((inputOrientation == Direction::PX) || (inputOrientation == Direction::NX))) {
+		direction = inputOrientation;
 	}
 }
 
@@ -53,33 +53,33 @@ void SnakeItem::initPoints() {
 	}
 }
 
-Orientation SnakeItem::toOrientation(char inputChar) {
+Direction SnakeItem::toOrientation(char inputChar) {
 	switch (inputChar){
 	case INPUT_UP:
-		return Orientation::NY;
+		return Direction::NY;
 	case INPUT_DOWN:
-		return Orientation::PY;
+		return Direction::PY;
 	case INPUT_LEFT:
-		return Orientation::NX;
+		return Direction::NX;
 	case INPUT_RIGHT:
-		return Orientation::PX;
+		return Direction::PX;
 	default:
-		return Orientation::NONE;
+		return Direction::NONE;
 	}
 }
 
 void SnakeItem::shiftHead() {
 	Point* pHead = (pPoints->pPointArray) + (SNAKE_LENGTH - 1);
-	if (orientation == Orientation::PY) {
+	if (direction == Direction::PY) {
 		(pHead->y)++;
 	}
-	else if (orientation == Orientation::NX) {
+	else if (direction == Direction::NX) {
 		(pHead->x)--;
 	}
-	else if (orientation == Orientation::NY) {
+	else if (direction == Direction::NY) {
 		(pHead->y)--;
 	}
-	else if (orientation == Orientation::PX) {
+	else if (direction == Direction::PX) {
 		(pHead->x)++;
 	}
 }
