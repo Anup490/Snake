@@ -5,13 +5,15 @@ Painter::Painter(AbstractItem* pItems, int totalItems) {
 	this->totalItems = totalItems;
 }
 
-void Painter::paint() {
+int Painter::paint() {
+	int totalDotsDrawn = 0;
 	Row rows[MAX_Y_AXIS];
 	initRows(rows);
 	makeFrame(rows);
 	system("cls");
-	drawFrame(rows);
+	drawFrame(rows, &totalDotsDrawn);
 	notifyItems();
+	return totalDotsDrawn;
 }
 
 void Painter::initRows(Row* pRows) {
@@ -43,15 +45,24 @@ bool Painter::isWithinBounds(Point point) {
 	return (point.x < MAX_X_AXIS) && (point.x >= 0) && (point.y < MAX_Y_AXIS) && (point.y >= 0);
 }
 
-void Painter::drawFrame(Row* pRows) {
+void Painter::drawFrame(Row* pRows, int* pTotalDotsDrawn) {
 	for (int i = 0; i < MAX_Y_AXIS; i++) {
 		if (pRows[i].size > 0) {
 			for (int j = 0; j < pRows[i].size; j++) {
 				bool glow = *(pRows[i].pPointFlags + j);
-				(glow == true) ? cout << "*" : cout << " ";
+				if (glow == true) {
+					cout << "*";
+					(*pTotalDotsDrawn)++;
+				}
+				else {
+					cout << " ";
+				}
 			}
 		}
 		cout << endl;
+	}
+	for (int i = 0; i < MAX_X_AXIS;i++) {
+		cout << "=";
 	}
 }
 

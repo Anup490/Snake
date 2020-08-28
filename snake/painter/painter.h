@@ -24,11 +24,11 @@ class Painter {
 	void initRows(Row* pRows);
 	void makeFrame(Row* pRows);
 	bool isWithinBounds(Point point);
-	void drawFrame(Row* pRows);
+	void drawFrame(Row* pRows, int* pTotalDotsDrawn);
 	void notifyItems();
 public:
 	Painter(AbstractItem* pItems, int totalItems);
-	void paint();
+	int paint();
 };
 
 
