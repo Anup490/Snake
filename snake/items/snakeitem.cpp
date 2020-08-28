@@ -10,21 +10,10 @@ SnakeItem::~SnakeItem() {
 }
 
 void SnakeItem::onDraw() {
-	Point prevHead = *((pPoints->pPointArray) + (SNAKE_LENGTH - 1));
-	shiftHead();
-	shiftBody(prevHead);
-
-	/*for (int i = (SNAKE_LENGTH-2); i >= 0; i--) {
-		Point* pPrevPoint = (pPoints->pPointArray) + (i+1);
-		Point* pPoint = (pPoints->pPointArray) + i;
-		Direction prevPointDirection = pPrevPoint->direction;
-		if ((prevPointDirection == Direction::PX) || ((prevPointDirection == Direction::NX))) {
-			shiftToX(pPrevPoint, pPoint);
-		}
-		else if ((prevPointDirection == Direction::PY) || ((prevPointDirection == Direction::NY))) {
-			shiftToY(pPrevPoint, pPoint);
-		}
-	}*/
+	Point* pHead = (pPoints->pPointArray) + (SNAKE_LENGTH - 1);
+	Point originalHead = *pHead;
+	shiftHead(pHead);
+	shiftBody(originalHead);
 }
 
 void SnakeItem::onInput(char inputChar) {
@@ -48,86 +37,23 @@ void SnakeItem::initPoints() {
 		Point* pPoint = (pPoints->pPointArray) + i;
 		pPoint->x = i;
 		pPoint->y = 0;
-		pPoint->direction = Direction::PX;
 	}
 }
 
-Direction SnakeItem::toOrientation(char inputChar) {
-	switch (inputChar){
-	case INPUT_UP:
-		return Direction::NY;
-	case INPUT_DOWN:
-		return Direction::PY;
-	case INPUT_LEFT:
-		return Direction::NX;
-	case INPUT_RIGHT:
-		return Direction::PX;
-	default:
-		return Direction::NONE;
-	}
-}
-
-void SnakeItem::shiftHead() {
-	Point* pHead = (pPoints->pPointArray) + (SNAKE_LENGTH - 1);
+void SnakeItem::shiftHead(Point* pHead) {
 	Direction nextDirection = direction;
-	if (nextDirection == Direction::PY) {
-		(pHead->y)++;
-	}
-	else if (nextDirection == Direction::NX) {
-		(pHead->x)--;
-	}
-	else if (nextDirection == Direction::NY) {
-		(pHead->y)--;
-	}
-	else if (nextDirection == Direction::PX) {
+	switch (nextDirection) {
+	case Direction::PX:
 		(pHead->x)++;
-	}
-	pHead->direction = nextDirection;
-}
-
-void SnakeItem::shiftToX(Point* pPrevPoint, Point* pPoint) {
-	if ((pPoint->y) > (pPrevPoint->y)) {
-		(pPoint->y)--;
-		if ((pPoint->y) == (pPrevPoint->y)) {
-			pPoint->direction = pPrevPoint->direction;
-		}
-	}
-	else if ((pPoint->y) < (pPrevPoint->y)) {
-		(pPoint->y)++;
-		if ((pPoint->y) == (pPrevPoint->y)) {
-			pPoint->direction = pPrevPoint->direction;
-		}
-	}
-	else if ((pPoint->x) > (pPrevPoint->x)) {
-		(pPoint->x)--;
-		pPoint->direction = pPrevPoint->direction;
-	}
-	else {
-		(pPoint->x)++;
-		pPoint->direction = pPrevPoint->direction;
-	}
-}
-
-void SnakeItem::shiftToY(Point* pPrevPoint, Point* pPoint) {
-	if ((pPoint->x) > (pPrevPoint->x)) {
-		(pPoint->x)--;
-		if ((pPoint->x) == (pPrevPoint->x)) {
-			pPoint->direction = pPrevPoint->direction;
-		}
-	}
-	else if ((pPoint->x) < (pPrevPoint->x)) {
-		(pPoint->x)++;
-		if ((pPoint->x) == (pPrevPoint->x)) {
-			pPoint->direction = pPrevPoint->direction;
-		}
-	}
-	else if ((pPoint->y) < (pPrevPoint->y)) {
-		(pPoint->y)++;
-		pPoint->direction = pPrevPoint->direction;
-	}
-	else {
-		(pPoint->y)--;
-		pPoint->direction = pPrevPoint->direction;
+		break;
+	case Direction::PY:
+		(pHead->y)++;
+		break;
+	case Direction::NX:
+		(pHead->x)--;
+		break;
+	case Direction::NY:
+		(pHead->y)--;
 	}
 }
 
@@ -142,4 +68,17 @@ void SnakeItem::shiftBody(Point prevHead) {
 	}
 }
 
-
+Direction SnakeItem::toOrientation(char inputChar) {
+	switch (inputChar) {
+	case INPUT_UP:
+		return Direction::NY;
+	case INPUT_DOWN:
+		return Direction::PY;
+	case INPUT_LEFT:
+		return Direction::NX;
+	case INPUT_RIGHT:
+		return Direction::PX;
+	default:
+		return Direction::NONE;
+	}
+}

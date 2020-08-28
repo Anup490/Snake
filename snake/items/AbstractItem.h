@@ -10,7 +10,6 @@ enum class Direction {
 struct Point{
 	int x;
 	int y;
-	Direction direction;
 };
 
 struct Points {
