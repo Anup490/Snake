@@ -3,9 +3,6 @@
 #include "timer/timer.h"
 #include <ppl.h>
 
-#define FRAME_INTERVAL_MILLIS 100
-#define EXIT_KEY 'x'
-
 char value = 'l';
 
 void listenInput(SnakeItem* pSnakeItem, Timer* pTimer) {

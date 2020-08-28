@@ -1,9 +1,6 @@
 #include <iostream>
 #include "../items/abstractItem.h"
 
-#define TURN_LENGTH_X SNAKE_LENGTH
-#define TURN_LENGTH_Y SNAKE_LENGTH
-
 using namespace std;
 
 struct Row

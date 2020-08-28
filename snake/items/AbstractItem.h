@@ -1,7 +1,6 @@
 #pragma once
 
-#define MAX_X_AXIS 120
-#define MAX_Y_AXIS 20
+#include "../constant/constants.h"
 
 enum class Direction {
 	PX, PY, NX, NY, NONE

@@ -2,13 +2,6 @@
 
 #include "abstractItem.h"
 
-#define SNAKE_LENGTH 12
-
-#define INPUT_UP 'i'
-#define INPUT_DOWN 'k'
-#define INPUT_LEFT 'j'
-#define INPUT_RIGHT 'l'
-
 class SnakeItem : public AbstractItem{
 	Direction direction;
 	Points* pPoints;
