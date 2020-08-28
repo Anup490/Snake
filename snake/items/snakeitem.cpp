@@ -10,8 +10,11 @@ SnakeItem::~SnakeItem() {
 }
 
 void SnakeItem::onDraw() {
+	Point prevHead = *((pPoints->pPointArray) + (SNAKE_LENGTH - 1));
 	shiftHead();
-	for (int i = (SNAKE_LENGTH-2); i >= 0; i--) {
+	shiftBody(prevHead);
+
+	/*for (int i = (SNAKE_LENGTH-2); i >= 0; i--) {
 		Point* pPrevPoint = (pPoints->pPointArray) + (i+1);
 		Point* pPoint = (pPoints->pPointArray) + i;
 		Direction prevPointDirection = pPrevPoint->direction;
@@ -21,7 +24,7 @@ void SnakeItem::onDraw() {
 		else if ((prevPointDirection == Direction::PY) || ((prevPointDirection == Direction::NY))) {
 			shiftToY(pPrevPoint, pPoint);
 		}
-	}
+	}*/
 }
 
 void SnakeItem::onInput(char inputChar) {
@@ -125,6 +128,17 @@ void SnakeItem::shiftToY(Point* pPrevPoint, Point* pPoint) {
 	else {
 		(pPoint->y)--;
 		pPoint->direction = pPrevPoint->direction;
+	}
+}
+
+void SnakeItem::shiftBody(Point prevHead) {
+	Point bufferSave;
+	Point bufferAssign = prevHead;
+	for (int i = SNAKE_LENGTH - 2; i >= 0; i--) {
+		Point* pPoint = (pPoints->pPointArray) + i;
+		bufferSave = *pPoint;
+		*pPoint = bufferAssign;
+		bufferAssign = bufferSave;
 	}
 }
 

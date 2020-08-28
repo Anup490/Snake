@@ -17,7 +17,7 @@ class SnakeItem : public AbstractItem{
 	void shiftHead();
 	void shiftToX(Point* pPrevPoint, Point* pPoint);
 	void shiftToY(Point* pPrevPoint, Point* pPoint);
-
+	void shiftBody(Point prevHead);
 public:
 	SnakeItem();
 	~SnakeItem();
