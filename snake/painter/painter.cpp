@@ -47,16 +47,14 @@ bool Painter::isWithinBounds(Point point) {
 
 void Painter::drawFrame(Row* pRows, int* pTotalDotsDrawn) {
 	for (int i = 0; i < MAX_Y_AXIS; i++) {
-		if (pRows[i].size > 0) {
-			for (int j = 0; j < pRows[i].size; j++) {
-				bool glow = *(pRows[i].pPointFlags + j);
-				if (glow == true) {
-					cout << "*";
-					(*pTotalDotsDrawn)++;
-				}
-				else {
-					cout << " ";
-				}
+		for (int j = 0; j < pRows[i].size; j++) {
+			bool glow = *(pRows[i].pPointFlags + j);
+			if (glow == true) {
+				cout << "*";
+				(*pTotalDotsDrawn)++;
+			}
+			else {
+				cout << " ";
 			}
 		}
 		cout << endl;
