@@ -24,7 +24,7 @@ class Painter {
 	void initRows(Row* pRows);
 	void makeFrame(Row* pRows);
 	bool isWithinBounds(Point point);
-	void drawFrame(Row* pRows, int* pTotalDotsDrawn);
+	void drawFrame(Row* pRows, int& rTotalDotsDrawn);
 	void notifyItems();
 public:
 	Painter(AbstractItem* pItems, int totalItems);
