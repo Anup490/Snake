@@ -4,7 +4,7 @@
 #include "collision/collision.h"
 #include <ppl.h>
 
-char value = 'l';
+char value = INPUT_RIGHT;
 
 void setupKeyListener(SnakeItem* pSnakeItem, Timer* pTimer);
 void listenInput(SnakeItem* pSnakeItem, Timer* pTimer);

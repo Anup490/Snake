@@ -4,7 +4,7 @@
 
 class SnakeItem : public AbstractItem{
 	Direction direction;
-	vector<Point*>* pPoints;
+	list<Point*>* pPoints;
 	void initPoints();
 	void shiftHead(Point* pHead);
 	void shiftBody(Point prevHead);
@@ -14,5 +14,5 @@ public:
 	~SnakeItem();
 	void onDraw() override;
 	void onInput(char inputChar);
-	vector<Point*>* getPoints() override;
+	list<Point*>* getPoints() override;
 };

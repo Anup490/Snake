@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <list>
 #include "../constant/constants.h"
 
 using namespace std;
@@ -17,5 +17,5 @@ struct Point{
 class AbstractItem {
 public:
 	virtual void onDraw() = 0;
-	virtual vector<Point*>* getPoints() = 0;
+	virtual list<Point*>* getPoints() = 0;
 };

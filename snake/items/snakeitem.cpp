@@ -2,7 +2,7 @@
 
 SnakeItem::SnakeItem() {
 	this->direction = Direction::PX;
-	this->pPoints = new vector<Point*>();
+	this->pPoints = new list<Point*>();
 	initPoints();
 }
 
@@ -11,7 +11,7 @@ SnakeItem::~SnakeItem() {
 }
 
 void SnakeItem::onDraw() {
-	Point* pHead = pPoints->at(0);
+	Point* pHead = *(pPoints->begin());
 	Point originalHead = *pHead;
 	shiftHead(pHead);
 	shiftBody(originalHead);
@@ -29,7 +29,7 @@ void SnakeItem::onInput(char inputChar) {
 	}
 }
 
-vector<Point*>* SnakeItem::getPoints() {
+list<Point*>* SnakeItem::getPoints() {
 	return pPoints;
 }
 
@@ -62,8 +62,10 @@ void SnakeItem::shiftHead(Point* pHead) {
 void SnakeItem::shiftBody(Point prevHead) {
 	Point bufferSave;
 	Point bufferAssign = prevHead;
-	for (int i = 1; i < SNAKE_LENGTH; i++) {
-		Point* pPoint = pPoints->at(i);
+	auto pPointsIterator = pPoints->begin();
+	pPointsIterator++;
+	for (; pPointsIterator!=pPoints->end(); pPointsIterator++) {
+		Point* pPoint = *pPointsIterator;
 		bufferSave = *pPoint;
 		*pPoint = bufferAssign;
 		bufferAssign = bufferSave;
