@@ -15,7 +15,7 @@ int main()
 {
 	SnakeItem snakeItem;
 	initializer_list<AbstractItem*> items({ &snakeItem });
-	Painter painter(&items, 1);
+	Painter painter(&items);
 	Timer timer;
 	Collision collision(SNAKE_LENGTH);
 	

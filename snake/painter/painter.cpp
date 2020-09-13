@@ -1,8 +1,7 @@
 #include "painter.h"
 
-Painter::Painter(initializer_list<AbstractItem*>* pItems, int totalItems) {
+Painter::Painter(initializer_list<AbstractItem*>* pItems) {
 	this->pItems = pItems;
-	this->totalItems = totalItems;
 }
 
 int Painter::paint() {
