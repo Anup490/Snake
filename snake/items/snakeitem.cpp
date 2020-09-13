@@ -7,6 +7,10 @@ SnakeItem::SnakeItem() {
 }
 
 SnakeItem::~SnakeItem() {
+	for (auto pPointsIterator = pPoints->begin(); pPointsIterator != pPoints->end(); pPointsIterator++) {
+		Point* pPoint = *pPointsIterator;
+		delete pPoint;
+	}
 	delete pPoints;
 }
 
@@ -64,7 +68,7 @@ void SnakeItem::shiftBody(Point prevHead) {
 	Point bufferAssign = prevHead;
 	auto pPointsIterator = pPoints->begin();
 	pPointsIterator++;
-	for (; pPointsIterator!=pPoints->end(); pPointsIterator++) {
+	for (; pPointsIterator != pPoints->end(); pPointsIterator++) {
 		Point* pPoint = *pPointsIterator;
 		bufferSave = *pPoint;
 		*pPoint = bufferAssign;
