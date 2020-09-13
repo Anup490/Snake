@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../items/abstractItem.h"
+#include <initializer_list>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ struct Row
 };
 
 class Painter {
-	AbstractItem* pItems;
+	initializer_list<AbstractItem*>* pItems;
 	int totalItems;
 	void initRows(Row* pRows);
 	void makeFrame(Row* pRows);
@@ -27,7 +28,7 @@ class Painter {
 	void drawFrame(Row* pRows, int& rTotalDotsDrawn);
 	void notifyItems();
 public:
-	Painter(AbstractItem* pItems, int totalItems);
+	Painter(initializer_list<AbstractItem*> *pItems, int totalItems);
 	int paint();
 };
 

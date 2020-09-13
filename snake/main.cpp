@@ -14,7 +14,8 @@ void showGameOverMessage();
 int main()
 {
 	SnakeItem snakeItem;
-	Painter painter(&snakeItem,1);
+	initializer_list<AbstractItem*> items({ &snakeItem });
+	Painter painter(&items, 1);
 	Timer timer;
 	Collision collision(SNAKE_LENGTH);
 	

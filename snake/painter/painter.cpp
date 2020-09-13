@@ -1,6 +1,6 @@
 #include "painter.h"
 
-Painter::Painter(AbstractItem* pItems, int totalItems) {
+Painter::Painter(initializer_list<AbstractItem*>* pItems, int totalItems) {
 	this->pItems = pItems;
 	this->totalItems = totalItems;
 }
@@ -24,16 +24,15 @@ void Painter::initRows(Row* pRows) {
 }
 
 void Painter::makeFrame(Row* pRows) {
-	for (int i = 0; i < totalItems; i++) {
-		AbstractItem* pItem = pItems + i;
+	for (AbstractItem* pItem : *pItems) {
 		Points* pPoints = pItem->getPoints();
 		for (int j = 0; j < pPoints->noOfPoints; j++) {
 			Point* pPoint = pPoints->pPointArray + j;
 			if (isWithinBounds(*pPoint)) {
-				Row* pRow = pRows + (pPoint->y);		
+				Row* pRow = pRows + (pPoint->y);
 				bool* pPointFlag = (pRow->pPointFlags) + (pPoint->x);
 				*(pPointFlag) = true;
-				if(((pPoint->x) + 1)>(pRow->size)) {
+				if (((pPoint->x) + 1) > (pRow->size)) {
 					pRow->size = (pPoint->x) + 1;
 				}
 			}
@@ -65,8 +64,7 @@ void Painter::drawFrame(Row* pRows, int& rTotalDotsDrawn) {
 }
 
 void Painter::notifyItems() {
-	for (int i = 0; i < totalItems; i++) {
-		AbstractItem* pItem = pItems + i;
+	for (AbstractItem* pItem : *pItems) {
 		pItem->onDraw();
 	}
 }
