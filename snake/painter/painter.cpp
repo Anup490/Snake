@@ -24,9 +24,8 @@ void Painter::initRows(Row* pRows) {
 
 void Painter::makeFrame(Row* pRows) {
 	for (AbstractItem* pItem : *pItems) {
-		Points* pPoints = pItem->getPoints();
-		for (int j = 0; j < pPoints->noOfPoints; j++) {
-			Point* pPoint = pPoints->pPointArray + j;
+		vector<Point*>* pPoints = pItem->getPoints();
+		for (Point* pPoint : *pPoints) {
 			if (isWithinBounds(*pPoint)) {
 				Row* pRow = pRows + (pPoint->y);
 				bool* pPointFlag = (pRow->pPointFlags) + (pPoint->x);
