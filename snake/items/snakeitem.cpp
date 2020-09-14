@@ -3,7 +3,9 @@
 SnakeItem::SnakeItem() {
 	this->direction = Direction::PX;
 	this->pPoints = new list<Point*>();
+	this->pNewTail = new Point;
 	initPoints();
+	this->snakeLength = pPoints->size();
 }
 
 SnakeItem::~SnakeItem() {
@@ -12,6 +14,7 @@ SnakeItem::~SnakeItem() {
 		delete pPoint;
 	}
 	delete pPoints;
+	delete pNewTail;
 }
 
 void SnakeItem::onDraw() {
@@ -37,12 +40,27 @@ list<Point*>* SnakeItem::getPoints() {
 	return pPoints;
 }
 
+void SnakeItem::onCollision() {
+	Point* pNewPoint = new Point;
+	pNewPoint->x = pNewTail->x;
+	pNewPoint->y = pNewTail->y;
+	pPoints->push_back(pNewPoint);
+	this->snakeLength = pPoints->size();
+}
+
+int SnakeItem::getPointsCount() {
+	return snakeLength;
+}
+
 void SnakeItem::initPoints() {
-	for (int i = (SNAKE_LENGTH - 1); i >=0 ; i--) {
+	for (int i = (INITIAL_SNAKE_LENGTH - 1); i >=0 ; i--) {
 		Point* pPoint = new Point;
 		pPoint->x = i;
 		pPoint->y = 0;
 		pPoints->push_back(pPoint);
+		/*if (i=0) {
+			pTail = pPoint;
+		}*/
 	}
 }
 
@@ -73,6 +91,12 @@ void SnakeItem::shiftBody(Point prevHead) {
 		bufferSave = *pPoint;
 		*pPoint = bufferAssign;
 		bufferAssign = bufferSave;
+
+		auto iterator = pPointsIterator;
+		if (++iterator == pPoints->end()) {
+			pNewTail->x = bufferSave.x;
+			pNewTail->y = bufferSave.y;
+		}
 	}
 }
 

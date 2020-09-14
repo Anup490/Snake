@@ -1,16 +1,19 @@
 #pragma once
 #include <exception>
+#include <initializer_list>
+#include "../items/abstractItem.h"
 using namespace std;
 
 struct CollisionException : exception {
-	const char* what() const override{
-		return "Collision Detected. Game Over";
-	}
+	const char* what() const override;
 };
 
 class Collision {
+	initializer_list<AbstractItem*>* pItems;
 	int totalDots;
+	void setTotalDots();
+	bool hasOverlapped(Point snakePoint, Point foodPoint);
 public:
-	Collision(int totalDots);
+	Collision(initializer_list<AbstractItem*>* pItems);
 	void checkCollision(int dotsDrawn) throw(CollisionException);
 };

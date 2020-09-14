@@ -19,6 +19,16 @@ list<Point*>* FoodItem::getPoints() {
 	return pPoints;
 }
 
+void FoodItem::onCollision() {
+	Point* pPoint = *(pPoints->begin());
+	pPoint->x = getRandomPoint(0, MAX_X_AXIS);
+	pPoint->y = getRandomPoint(0, MAX_Y_AXIS);
+}
+
+int FoodItem::getPointsCount() {
+	return 1;
+}
+
 void FoodItem::initPoints() {
 	Point* pPoint = new Point;
 	pPoint->x = getRandomPoint(0, MAX_X_AXIS);

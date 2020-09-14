@@ -13,4 +13,6 @@ public:
 	~FoodItem();
 	void onDraw() override;
 	list<Point*>* getPoints() override;
+	void onCollision() override;
+	int getPointsCount() override;
 };

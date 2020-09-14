@@ -19,7 +19,8 @@ int main()
 	initializer_list<AbstractItem*> items({ &snakeItem , &foodItem});
 	Painter painter(&items);
 	Timer timer;
-	Collision collision(SNAKE_LENGTH + 1);
+	Collision collision(&items);
+
 	
 	setupKeyListener(&snakeItem, &timer);
 	runGame(&collision,&painter,&timer);
