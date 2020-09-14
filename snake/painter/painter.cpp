@@ -59,6 +59,7 @@ void Painter::drawFrame(Row* pRows, int& rTotalDotsDrawn) {
 	for (int i = 0; i < MAX_X_AXIS;i++) {
 		cout << "=";
 	}
+	cout << "SCORE :: " << rTotalDotsDrawn - 1 - INITIAL_SNAKE_LENGTH<< endl;
 }
 
 void Painter::notifyItems() {
