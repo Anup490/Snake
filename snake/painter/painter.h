@@ -8,7 +8,7 @@ struct Row
 {
 	bool* pPointFlags;
 	int size = 0;
-	Row(){}
+	Row() = default;
 
 	Row(int boolSize) {
 		this->pPointFlags = new bool[boolSize];
