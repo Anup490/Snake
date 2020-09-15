@@ -58,9 +58,6 @@ void SnakeItem::initPoints() {
 		pPoint->x = i;
 		pPoint->y = 0;
 		pPoints->push_back(pPoint);
-		/*if (i=0) {
-			pTail = pPoint;
-		}*/
 	}
 }
 
@@ -91,7 +88,6 @@ void SnakeItem::shiftBody(Point prevHead) {
 		bufferSave = *pPoint;
 		*pPoint = bufferAssign;
 		bufferAssign = bufferSave;
-
 		auto iterator = pPointsIterator;
 		if (++iterator == pPoints->end()) {
 			pNewTail->x = bufferSave.x;
