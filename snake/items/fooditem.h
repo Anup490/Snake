@@ -1,18 +1,18 @@
 #pragma once
-
-#include <cmath>
-#include <ctime>
 #include "AbstractItem.h"
 
-class FoodItem : public AbstractItem{
+class FoodItem : public AbstractItem
+{
 	list<Point*>* pPoints;
-	void initPoints();
-	int getRandomPoint(int from, int to);
+	void InitPoints();
+	int GetRandomPoint(int from, int to);
+	void SetFromAndToProperly(int& from, int& to);
+	int GetClampedValue(int& from, int& to, int rand, int midVal);
 public:
 	FoodItem();
 	~FoodItem();
-	void onDraw() override;
-	list<Point*>* getPoints() override;
-	void onCollision() override;
-	int getPointsCount() override;
+	void OnDraw() override;
+	list<Point*>* GetPoints() override;
+	void OnCollision() override;
+	int GetPointsCount() override;
 };

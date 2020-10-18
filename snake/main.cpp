@@ -3,14 +3,18 @@
 #include "items/Fooditem.h"
 #include "timer/Timer.h"
 #include "collision/Collision.h"
+#include "constant/Constants.h"
 #include <ppl.h>
+#include <iostream>
+
+using namespace std;
 
 char value = INPUT_RIGHT;
 
-void setupKeyListener(SnakeItem* pSnakeItem, Timer* pTimer);
-void listenInput(SnakeItem* pSnakeItem, Timer* pTimer);
-void runGame(Collision* pCollision, Painter* pPainter, Timer* pTimer);
-void showGameOverMessage();
+void setup_key_listener(SnakeItem* pSnakeItem, Timer* pTimer);
+void listen_input(SnakeItem* pSnakeItem, Timer* pTimer);
+void run_game(Collision* pCollision, Painter* pPainter, Timer* pTimer);
+void show_game_over_message();
 
 int main()
 {
@@ -20,44 +24,52 @@ int main()
 	Painter painter(&items);
 	Timer timer;
 	Collision collision(&items);
-
-	
-	setupKeyListener(&snakeItem, &timer);
-	runGame(&collision,&painter,&timer);
-	showGameOverMessage();
-	
+	setup_key_listener(&snakeItem, &timer);
+	run_game(&collision,&painter,&timer);
+	show_game_over_message();
 	return 0;
 }
 
-void setupKeyListener(SnakeItem* pSnakeItem, Timer* pTimer) {
-	thread listener(listenInput, pSnakeItem, pTimer);
+void setup_key_listener(SnakeItem* pSnakeItem, Timer* pTimer) 
+{
+	thread listener(listen_input, pSnakeItem, pTimer);
 	listener.detach();
 }
 
-void listenInput(SnakeItem* pSnakeItem, Timer* pTimer) {
-	while (value != EXIT_KEY) {
-		if (pTimer->isMilliSecondComplete(FRAME_INTERVAL_MILLIS)) {
+void listen_input(SnakeItem* pSnakeItem, Timer* pTimer) 
+{
+	while (value != EXIT_KEY) 
+	{
+		if (pTimer->IsMilliSecondComplete(FRAME_INTERVAL_MILLIS)) 
+		{
 			cin >> value;
-			pSnakeItem->onInput(value);
+			pSnakeItem->OnInput(value);
 		}
 	}
 }
 
-void runGame(Collision* pCollision, Painter* pPainter, Timer* pTimer) {
-	while (value != EXIT_KEY) {
-		if (pTimer->isMilliSecondComplete(FRAME_INTERVAL_MILLIS)) {
-			try {
-				pCollision->checkCollision(pPainter->paint());
+void run_game(Collision* pCollision, Painter* pPainter, Timer* pTimer) 
+{
+	while (value != EXIT_KEY) 
+	{
+		if (pTimer->IsMilliSecondComplete(FRAME_INTERVAL_MILLIS)) 
+		{
+			try 
+			{
+				pCollision->CheckCollision(pPainter->Paint());
 			}
-			catch (CollisionException& e) {
+			catch (CollisionException& e) 
+			{
 				value = EXIT_KEY;
 			}
 		}
 	}
 }
 
-void showGameOverMessage() {
-	for (int i = 0; i < (((MAX_X_AXIS) / 2) - 5); i++) {
+void show_game_over_message() 
+{
+	for (int i = 0; i < (((MAX_X_AXIS) / 2) - 5); i++) 
+	{
 		cout << " ";
 	}
 	cout << "GAME OVER" << endl;

@@ -1,36 +1,38 @@
-#include <iostream>
-#include <initializer_list>
-#include "../items/AbstractItem.h"
+#pragma once
 
-using namespace std;
+namespace std
+{
+	template <class _Elem>
+	class initializer_list;
+}
 
 struct Row
 {
 	bool* pPointFlags;
 	int size = 0;
 	Row() = default;
-
-	Row(int boolSize) {
+	Row(int boolSize) 
+	{
 		this->pPointFlags = new bool[boolSize];
 	}
-
-	~Row() {
+	~Row() 
+	{
 		delete[] pPointFlags;
 	}
 };
 
-class Painter {
-	initializer_list<AbstractItem*>* pItems;
-	void initRows(Row* pRows);
-	void makeFrame(Row* pRows);
-	bool isWithinBounds(Point point);
-	void drawFrame(Row* pRows, int& rTotalDotsDrawn);
-	void notifyItems();
+using namespace std;
+
+class Painter 
+{
+	initializer_list<class AbstractItem*>* pItems;
+	void InitRows(Row* pRows);
+	void MakeFrame(Row* pRows);
+	bool IsWithinBounds(struct Point point);
+	void DrawFrame(Row* pRows, int& rTotalDotsDrawn);
+	void AddBoundaryAndScore(int& rTotalDotsDrawn);
+	void NotifyItems();
 public:
 	Painter(initializer_list<AbstractItem*> *pItems);
-	int paint();
+	int Paint();
 };
-
-
-
-

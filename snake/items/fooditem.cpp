@@ -1,57 +1,81 @@
 #include "Fooditem.h"
+#include "../constant/Constants.h"
+#include <list>
+#include <cmath>
+#include <ctime>
 
-FoodItem::FoodItem() {
+FoodItem::FoodItem() 
+{
 	this->pPoints = new list<Point*>;
-	initPoints();
+	InitPoints();
 }
 
-FoodItem::~FoodItem() {
-	for (auto pPointsIterator = pPoints->begin(); pPointsIterator != pPoints->end(); pPointsIterator++) {
+FoodItem::~FoodItem() 
+{
+	for (auto pPointsIterator = pPoints->begin(); pPointsIterator != pPoints->end(); pPointsIterator++) 
+	{
 		Point* pPoint = *pPointsIterator;
 		delete pPoint;
 	}
 	delete pPoints;
 }
 
-void FoodItem::onDraw() {}
+void FoodItem::OnDraw() {}
 
-list<Point*>* FoodItem::getPoints() {
+list<Point*>* FoodItem::GetPoints() 
+{
 	return pPoints;
 }
 
-void FoodItem::onCollision() {
+void FoodItem::OnCollision() 
+{
 	Point* pPoint = *(pPoints->begin());
-	pPoint->x = getRandomPoint(0, MAX_X_AXIS);
-	pPoint->y = getRandomPoint(0, MAX_Y_AXIS);
+	pPoint->x = GetRandomPoint(0, MAX_X_AXIS);
+	pPoint->y = GetRandomPoint(0, MAX_Y_AXIS);
 }
 
-int FoodItem::getPointsCount() {
+int FoodItem::GetPointsCount() 
+{
 	return 1;
 }
 
-void FoodItem::initPoints() {
+void FoodItem::InitPoints() 
+{
 	Point* pPoint = new Point;
-	pPoint->x = getRandomPoint(0, MAX_X_AXIS);
-	pPoint->y = getRandomPoint(0, MAX_Y_AXIS);
+	pPoint->x = GetRandomPoint(0, MAX_X_AXIS);
+	pPoint->y = GetRandomPoint(0, MAX_Y_AXIS);
 	pPoints->push_back(pPoint);
 }
 
-int FoodItem::getRandomPoint(int from, int to) {
-	if (from > to) {
+int FoodItem::GetRandomPoint(int from, int to) 
+{
+	SetFromAndToProperly(from, to);
+	srand((unsigned)time(NULL));
+	return GetClampedValue(from, to, rand() % to, (from + to) / 2);
+}
+
+void FoodItem::SetFromAndToProperly(int& from, int& to)
+{
+	if (from > to)
+	{
 		int temp = from;
 		from = to;
 		to = temp;
+	}	
+}
+
+int FoodItem::GetClampedValue(int& from, int& to, int rand, int midVal)
+{
+	if ((rand >= from) && (rand <= to))
+	{
+		return rand;
 	}
-	int mid_value = (from + to) / 2;
-	srand((unsigned)time(NULL));
-	int calc_rand = rand() % to;
-	if ((calc_rand >= from) && (calc_rand <= to)) {
-		return calc_rand;
+	else if (rand <= midVal)
+	{
+		return (rand + from);
 	}
-	else if (calc_rand <= mid_value) {
-		return (calc_rand + from);
-	}
-	else {
-		return (calc_rand - from);
+	else
+	{
+		return (rand - from);
 	}
 }
