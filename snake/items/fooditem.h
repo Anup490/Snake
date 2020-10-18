@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include <ctime>
-#include "abstractItem.h"
+#include "AbstractItem.h"
 
 class FoodItem : public AbstractItem{
 	list<Point*>* pPoints;

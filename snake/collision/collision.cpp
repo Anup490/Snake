@@ -1,4 +1,4 @@
-#include "collision.h"
+#include "Collision.h"
 
 const char* CollisionException::what() const{
 	return "Collision Detected. Game Over";

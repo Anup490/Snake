@@ -4,6 +4,6 @@
 cmake_minimum_required (VERSION 3.8)
 
 # Add source to this project's executable.
-add_executable (snake "main.cpp" "painter/painter.h" "painter/painter.cpp" "timer/timer.h" "timer/timer.cpp" "items/abstractitem.h" "items/snakeitem.h" "items/snakeitem.cpp" "constant/constants.h" "collision/collision.h" "collision/collision.cpp" "items/fooditem.h" "items/fooditem.cpp")
+add_executable (snake "main.cpp" "painter/Painter.h" "painter/Painter.cpp" "timer/Timer.h" "timer/Timer.cpp" "items/Abstractitem.h" "items/Snakeitem.h" "items/Snakeitem.cpp" "constant/Constants.h" "collision/Collision.h" "collision/Collision.cpp" "items/Fooditem.h" "items/Fooditem.cpp")
 
 # TODO: Add tests and install targets if needed.

@@ -1,4 +1,4 @@
-#include "fooditem.h"
+#include "Fooditem.h"
 
 FoodItem::FoodItem() {
 	this->pPoints = new list<Point*>;

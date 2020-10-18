@@ -1,7 +1,7 @@
 #pragma once
 #include <exception>
 #include <initializer_list>
-#include "../items/abstractItem.h"
+#include "../items/AbstractItem.h"
 using namespace std;
 
 struct CollisionException : exception {

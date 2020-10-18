@@ -1,8 +1,8 @@
-﻿#include "painter/painter.h"
-#include "items/snakeitem.h"
-#include "items/fooditem.h"
-#include "timer/timer.h"
-#include "collision/collision.h"
+﻿#include "painter/Painter.h"
+#include "items/Snakeitem.h"
+#include "items/Fooditem.h"
+#include "timer/Timer.h"
+#include "collision/Collision.h"
 #include <ppl.h>
 
 char value = INPUT_RIGHT;

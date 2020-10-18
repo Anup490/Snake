@@ -1,4 +1,4 @@
-#include "snakeitem.h"
+#include "Snakeitem.h"
 
 SnakeItem::SnakeItem() {
 	this->direction = Direction::PX;

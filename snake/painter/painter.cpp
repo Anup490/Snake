@@ -1,4 +1,4 @@
-#include "painter.h"
+#include "Painter.h"
 
 Painter::Painter(initializer_list<AbstractItem*>* pItems) {
 	this->pItems = pItems;
