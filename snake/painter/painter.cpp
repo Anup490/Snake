@@ -29,6 +29,7 @@ void Painter::InitRows(Row* pRows)
 	{
 		Row* pNewRow = new Row(MAX_X_AXIS);
 		pRows[i] = *pNewRow;
+		delete pNewRow;
 	}
 }
 
