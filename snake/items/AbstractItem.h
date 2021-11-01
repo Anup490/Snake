@@ -29,4 +29,5 @@ public:
 	virtual list<Point*>* GetPoints() = 0;
 	virtual void OnCollision() = 0;
 	virtual int GetPointsCount() = 0;
+	virtual ~AbstractItem() = default;
 };

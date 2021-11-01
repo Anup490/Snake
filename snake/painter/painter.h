@@ -13,11 +13,21 @@ struct Row
 	Row() = default;
 	Row(int boolSize) 
 	{
+		size = boolSize;
 		this->pPointFlags = new bool[boolSize];
 	}
 	~Row() 
 	{
 		delete[] pPointFlags;
+	}
+	Row& operator=(Row& anotherRow)
+	{
+		this->pPointFlags = new bool[anotherRow.size];
+		for (int i=0; i< anotherRow.size; i++)
+		{
+			this->pPointFlags[i] = anotherRow.pPointFlags[i];
+		}
+		return *this;
 	}
 };
 
