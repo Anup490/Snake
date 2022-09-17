@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace std
 {
@@ -36,11 +37,13 @@ using namespace std;
 class Painter 
 {
 	initializer_list<class AbstractItem*>* pItems;
+	std::string frame;
 	void InitRows(Row* pRows);
 	void MakeFrame(Row* pRows);
 	bool IsWithinBounds(struct Point point);
 	void DrawFrame(Row* pRows, int& rTotalDotsDrawn);
 	void AddBoundaryAndScore(int& rTotalDotsDrawn);
+	void ShowFrame(std::string& frame);
 	void NotifyItems();
 public:
 	Painter(initializer_list<AbstractItem*> *pItems);
