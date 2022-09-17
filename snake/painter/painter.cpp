@@ -62,7 +62,7 @@ bool Painter::IsWithinBounds(Point point)
 
 void Painter::DrawFrame(Row* pRows, int& rTotalDotsDrawn) 
 {
-	std::string row;
+	std::string frame;
 	for (int i = 0; i < MAX_Y_AXIS; i++) 
 	{
 		for (int j = 0; j < pRows[i].size; j++) 
@@ -70,16 +70,15 @@ void Painter::DrawFrame(Row* pRows, int& rTotalDotsDrawn)
 			bool glow = *(pRows[i].pPointFlags + j);
 			if (glow == true) 
 			{
-				row.append("*");
+				frame.append("*");
 				rTotalDotsDrawn++;
 			}
 			else 
-				row.append(" ");
+				frame.append(" ");
 		}
-		row.append("\n");
+		frame.append("\n");
 	}
-	cout << row;
-	row.clear();
+	cout << frame;
 }
 
 void Painter::AddBoundaryAndScore(int& rTotalDotsDrawn)
