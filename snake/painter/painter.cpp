@@ -4,7 +4,6 @@
 #include <initializer_list>
 #include <list>
 #include <iostream>
-#include <string>
 
 Painter::Painter(initializer_list<AbstractItem*>* pItems) 
 {
@@ -20,6 +19,7 @@ int Painter::Paint()
 	system("cls");
 	DrawFrame(rows, totalDotsDrawn);
 	AddBoundaryAndScore(totalDotsDrawn);
+	ShowFrame(frame);
 	NotifyItems();
 	return totalDotsDrawn;
 }
@@ -60,9 +60,8 @@ bool Painter::IsWithinBounds(Point point)
 	return (point.x < MAX_X_AXIS) && (point.x >= 0) && (point.y < MAX_Y_AXIS) && (point.y >= 0);
 }
 
-void Painter::DrawFrame(Row* pRows, int& rTotalDotsDrawn) 
+void Painter::DrawFrame(Row* pRows, int& rTotalDotsDrawn)
 {
-	std::string frame;
 	for (int i = 0; i < MAX_Y_AXIS; i++) 
 	{
 		for (int j = 0; j < pRows[i].size; j++) 
@@ -78,16 +77,23 @@ void Painter::DrawFrame(Row* pRows, int& rTotalDotsDrawn)
 		}
 		frame.append("\n");
 	}
-	cout << frame;
 }
 
 void Painter::AddBoundaryAndScore(int& rTotalDotsDrawn)
 {
 	for (int i = 0; i < MAX_X_AXIS; i++) 
 	{
-		cout << "=";
+		frame.append("=");
 	}
-	cout << "SCORE :: " << rTotalDotsDrawn - 1 - INITIAL_SNAKE_LENGTH << endl;
+	frame.append("SCORE :: ");
+	frame.append(std::to_string(rTotalDotsDrawn - 1 - INITIAL_SNAKE_LENGTH));
+	frame.append("\n");
+}
+
+void Painter::ShowFrame(std::string& frame)
+{
+	cout << frame;
+	frame.clear();
 }
 
 void Painter::NotifyItems() 
