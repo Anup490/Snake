@@ -4,6 +4,7 @@
 #include <initializer_list>
 #include <list>
 #include <iostream>
+#include <string>
 
 Painter::Painter(initializer_list<AbstractItem*>* pItems) 
 {
@@ -61,6 +62,7 @@ bool Painter::IsWithinBounds(Point point)
 
 void Painter::DrawFrame(Row* pRows, int& rTotalDotsDrawn) 
 {
+	std::string row;
 	for (int i = 0; i < MAX_Y_AXIS; i++) 
 	{
 		for (int j = 0; j < pRows[i].size; j++) 
@@ -68,16 +70,16 @@ void Painter::DrawFrame(Row* pRows, int& rTotalDotsDrawn)
 			bool glow = *(pRows[i].pPointFlags + j);
 			if (glow == true) 
 			{
-				cout << "*";
+				row.append("*");
 				rTotalDotsDrawn++;
 			}
 			else 
-			{
-				cout << " ";
-			}
+				row.append(" ");
 		}
-		cout << endl;
+		row.append("\n");
 	}
+	cout << row;
+	row.clear();
 }
 
 void Painter::AddBoundaryAndScore(int& rTotalDotsDrawn)
